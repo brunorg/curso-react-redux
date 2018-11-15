@@ -8,8 +8,8 @@ class LoginPage extends Component {
     fazLogin = (e) => {
         e.preventDefault();
 
-        console.log('login: ' + this.refs.inputLogin.value);
-        console.log('password: ' + this.refs.inputPassword.value);
+        // console.log('login: ' + this.refs.inputLogin.value);
+        // console.log('password: ' + this.refs.inputPassword.value);
 
         const dadosDeLogin = {
             login: this.refs.inputLogin.value,
@@ -22,7 +22,9 @@ class LoginPage extends Component {
         }).then((respostaDoServidor) => {
             return respostaDoServidor.json()
         }).then((respostaConvertida) => {
-            console.log(respostaConvertida.token)
+            //console.log(respostaConvertida.token)
+            localStorage.setItem('TOKEN', respostaConvertida.token);
+            this.props.history.push('/')
         })
     }
 
