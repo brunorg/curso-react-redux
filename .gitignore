@@ -59,3 +59,9 @@ typings/
 
 # next.js build output
 .next
+
+.DS_Store
+
+arquivos-js46-master/
+twitelum-api-master/
+twitelum-workshop-modelo-master/
