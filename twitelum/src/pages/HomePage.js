@@ -19,9 +19,22 @@ class HomePage extends Component {
     adicionaTweet = (infosDoEvento) => {
         infosDoEvento.preventDefault()
         const novoTweet = this.state.novoTweet;
-        this.setState({
-            tweets: [novoTweet, ...this.state.tweets],
-            novoTweet: ''
+
+        fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem("TOKEN")}`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                // 'Authorization': localStorage.getItem('TOKEN')
+            },
+            body: JSON.stringify({ conteudo: novoTweet })
+        }).then((respostaDoServer) => {
+            return respostaDoServer.json()
+        }).then((respostaConvertida) => {
+            console.log('Resposta: ', respostaConvertida)
+            this.setState({
+                tweets: [novoTweet, ...this.state.tweets],
+                novoTweet: ''
+            })
         })
     }
 
@@ -36,10 +49,10 @@ class HomePage extends Component {
                         <Widget>
                             <form className="novoTweet" onSubmit={this.adicionaTweet}>
                                 <div className="novoTweet__status">
-                                    <span className={ "novoTweet__status" + 
-                                        ( this.state.novoTweet.length > 140 ?
-                                         " novoTweet__status--invalido" : "" )
-                                         }>{this.state.novoTweet.length}/140</span>
+                                    <span className={"novoTweet__status" +
+                                        (this.state.novoTweet.length > 140 ?
+                                            " novoTweet__status--invalido" : "")
+                                    }>{this.state.novoTweet.length}/140</span>
                                     <textarea
                                         value={this.state.novoTweet}
                                         onChange={(infosDoEvento) => {
@@ -50,8 +63,8 @@ class HomePage extends Component {
                                         }}
                                         className="novoTweet__editor" placeholder="O que está acontecendo?"></textarea>
                                 </div>
-                                <button 
-                                    type="submit" 
+                                <button
+                                    type="submit"
                                     disabled={
                                         this.state.novoTweet.length > 140 ||
                                         this.state.novoTweet.length === 0}
