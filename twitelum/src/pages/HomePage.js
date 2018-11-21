@@ -12,7 +12,7 @@ class HomePage extends Component {
 
         this.state = {
             novoTweet: "Digite o que vier na sua cabeça",
-            tweets: ['Primeiro tweet do dia!']
+            tweets: []
         }
     }
 
@@ -29,10 +29,10 @@ class HomePage extends Component {
             body: JSON.stringify({ conteudo: novoTweet })
         }).then((respostaDoServer) => {
             return respostaDoServer.json()
-        }).then((respostaConvertida) => {
-            console.log('Resposta: ', respostaConvertida)
+        }).then((tweetQueVeioDoServer) => {
+            console.log('Resposta: ', tweetQueVeioDoServer)
             this.setState({
-                tweets: [novoTweet, ...this.state.tweets],
+                tweets: [tweetQueVeioDoServer, ...this.state.tweets],
                 novoTweet: ''
             })
         })
@@ -80,7 +80,7 @@ class HomePage extends Component {
                             <div className="tweetsArea">
                                 {
                                     this.state.tweets.map((tweetAtual, indice) => {
-                                        return <Tweet key={indice} texto={tweetAtual} />
+                                        return <Tweet key={indice} texto={tweetAtual.conteudo} usuario={tweetAtual.usuario} />
                                     })
                                 }
                             </div>
