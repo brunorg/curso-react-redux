@@ -104,7 +104,8 @@ class HomePage extends Component {
                                             texto={tweetAtual.conteudo}
                                             usuario={tweetAtual.usuario}
                                             likeado={tweetAtual.likeado}
-                                            totalLikes={tweetAtual.totalLikes} />
+                                            totalLikes={tweetAtual.totalLikes}
+                                            removivel={tweetAtual.removivel} />
                                     })
                                 }
                             </div>

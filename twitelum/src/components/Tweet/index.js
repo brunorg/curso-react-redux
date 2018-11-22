@@ -58,6 +58,12 @@ class Tweet extends Component {
                         </svg>
                         {this.state.totalLikes}
                     </button>
+                    {
+                        this.props.removivel &&
+                        <button className="btn btn--blue btn--remove" >
+                            x
+                        </button>
+                    }
                 </footer>
             </article>
         )
