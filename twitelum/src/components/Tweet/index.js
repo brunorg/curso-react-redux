@@ -60,7 +60,7 @@ class Tweet extends Component {
                     </button>
                     {
                         this.props.removivel &&
-                        <button className="btn btn--blue btn--remove" >
+                        <button className="btn btn--blue btn--remove" onClick={this.props.removeHandler}>
                             x
                         </button>
                     }

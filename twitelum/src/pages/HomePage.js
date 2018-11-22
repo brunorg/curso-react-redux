@@ -50,6 +50,15 @@ class HomePage extends Component {
         })
     }
 
+    removeTweet = (idDoTweet) => {
+        const listaAtualizada = this.state.tweets.filter((tweetAtual) => {
+            return tweetAtual._id !== idDoTweet
+        })
+        this.setState({
+            tweets: listaAtualizada
+        })
+    }
+
     render() {
         return (
             <Fragment>
@@ -105,7 +114,8 @@ class HomePage extends Component {
                                             usuario={tweetAtual.usuario}
                                             likeado={tweetAtual.likeado}
                                             totalLikes={tweetAtual.totalLikes}
-                                            removivel={tweetAtual.removivel} />
+                                            removivel={tweetAtual.removivel}
+                                            removeHandler={() => this.removeTweet(tweetAtual._id)} />
                                     })
                                 }
                             </div>
