@@ -16,6 +16,16 @@ class Tweet extends Component {
             likeado: !likeado,
             totalLikes: (likeado ? totalLikes - 1 : totalLikes + 1)
         })
+
+        const idDoTweet = this.props.id
+
+        fetch(`http://twitelum-api.herokuapp.com/tweets/${idDoTweet}/like?X-AUTH-TOKEN=${localStorage.getItem("TOKEN")}`, {
+            method: 'POST'
+        }).then((res) => {
+            return res.json()
+        }).then((respostaConvertida) => {
+            console.log(respostaConvertida)
+        })
     }
 
     render() {
