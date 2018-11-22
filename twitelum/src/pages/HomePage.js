@@ -98,7 +98,12 @@ class HomePage extends Component {
                                 }
                                 {
                                     this.state.tweets.map((tweetAtual, indice) => {
-                                        return <Tweet key={indice} texto={tweetAtual.conteudo} usuario={tweetAtual.usuario} />
+                                        return <Tweet
+                                            key={indice}
+                                            texto={tweetAtual.conteudo}
+                                            usuario={tweetAtual.usuario}
+                                            likeado={tweetAtual.likeado}
+                                            totalLikes={tweetAtual.totalLikes} />
                                     })
                                 }
                             </div>
