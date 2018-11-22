@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import Helmet from 'react-helmet';
 import Cabecalho from '../components/Cabecalho'
 import NavMenu from '../components/NavMenu'
 import Dashboard from '../components/Dashboard'
@@ -14,6 +15,17 @@ class HomePage extends Component {
             novoTweet: "Digite o que vier na sua cabeça",
             tweets: []
         }
+    }
+
+    componentDidMount() {
+        fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem("TOKEN")}`)
+            .then((respostaDoServer) => {
+                return respostaDoServer.json()
+            }).then((tweetsQueVieramDoServer) => {
+                this.setState({
+                    tweets: tweetsQueVieramDoServer
+                })
+            })
     }
 
     adicionaTweet = (infosDoEvento) => {
@@ -41,6 +53,9 @@ class HomePage extends Component {
     render() {
         return (
             <Fragment>
+                <Helmet>
+                    <title>{`Home (${this.state.tweets.length}) - Twitelum`}</title>
+                </Helmet>
                 <Cabecalho>
                     <NavMenu usuario="@omariosouto" />
                 </Cabecalho>
@@ -78,6 +93,9 @@ class HomePage extends Component {
                     <Dashboard posicao="centro">
                         <Widget>
                             <div className="tweetsArea">
+                                {
+                                    this.state.tweets.length === 0 ? 'Loading...' : ''
+                                }
                                 {
                                     this.state.tweets.map((tweetAtual, indice) => {
                                         return <Tweet key={indice} texto={tweetAtual.conteudo} usuario={tweetAtual.usuario} />
