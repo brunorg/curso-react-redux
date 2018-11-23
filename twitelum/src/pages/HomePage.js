@@ -51,12 +51,21 @@ class HomePage extends Component {
     }
 
     removeTweet = (idDoTweet) => {
-        const listaAtualizada = this.state.tweets.filter((tweetAtual) => {
-            return tweetAtual._id !== idDoTweet
+        fetch(`http://twitelum-api.herokuapp.com/tweets/${idDoTweet}?X-AUTH-TOKEN=${localStorage.getItem("TOKEN")}`, {
+            method: 'DELETE',
         })
-        this.setState({
-            tweets: listaAtualizada
-        })
+            .then((res) => res.json())
+            .then((respostaConvertida) => {
+                console.log(respostaConvertida)
+
+                const listaAtualizada = this.state.tweets.filter((tweetAtual) => {
+                    return tweetAtual._id !== idDoTweet
+                })
+
+                this.setState({
+                    tweets: listaAtualizada
+                })
+            })
     }
 
     render() {
