@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './tweet.css'
+import PropTypes from 'prop-types';
 
 class Tweet extends Component {
     constructor(props) {
@@ -68,6 +69,20 @@ class Tweet extends Component {
             </article>
         )
     }
+}
+
+Tweet.propTypes = {
+    id: PropTypes.string.isRequired,
+    texto: PropTypes.string.isRequired,
+    usuario: PropTypes.shape({
+        foto: PropTypes.string,
+        nome: PropTypes.string,
+        login: PropTypes.string
+    }).isRequired,
+    likeado: PropTypes.bool,
+    removivel: PropTypes.bool,
+    totalLikes: PropTypes.number,
+    removeHandler: PropTypes.func
 }
 
 export default Tweet
