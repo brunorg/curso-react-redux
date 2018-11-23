@@ -14,7 +14,8 @@ class HomePage extends Component {
 
         this.state = {
             novoTweet: "Digite o que vier na sua cabeça",
-            tweets: []
+            tweets: [],
+            tweetAtivo: {}
         }
     }
 
@@ -67,6 +68,20 @@ class HomePage extends Component {
                     tweets: listaAtualizada
                 })
             })
+    }
+
+    abreModal = (objetoDoTweetClicado) => {
+        this.setState({
+            tweetAtivo: objetoDoTweetClicado
+        })
+        console.log(objetoDoTweetClicado);
+    }
+
+    fechaModal = () => {
+        this.setState({
+            tweetAtivo: {}
+        })
+        console.log('Modal fechado')
     }
 
     render() {
@@ -125,16 +140,26 @@ class HomePage extends Component {
                                             likeado={tweetAtual.likeado}
                                             totalLikes={tweetAtual.totalLikes}
                                             removivel={tweetAtual.removivel}
-                                            removeHandler={() => this.removeTweet(tweetAtual._id)} />
+                                            removeHandler={() => this.removeTweet(tweetAtual._id)}
+                                            handleAbreModal={() => this.abreModal(tweetAtual)} />
                                     })
                                 }
                             </div>
                         </Widget>
                     </Dashboard>
                 </div>
-                <Modal isAberto={true} >
+                <Modal isAberto={Boolean(this.state.tweetAtivo._id)} onFechandoModal={this.fechaModal} >
                     <Widget>
-                        xablau
+                        <Tweet
+                            id={this.state.tweetAtivo._id}
+                            texto={this.state.tweetAtivo.conteudo}
+                            usuario={this.state.tweetAtivo.usuario}
+                            likeado={this.state.tweetAtivo.likeado}
+                            totalLikes={this.state.tweetAtivo.totalLikes}
+                            removivel={this.state.tweetAtivo.removivel}
+                            removeHandler={() => this.removeTweet(this.state.tweetAtivo._id)}
+                            handleAbreModal={() => this.abreModal(this.state.tweetAtivo)}
+                        />
                     </Widget>
                 </Modal>
             </Fragment>
