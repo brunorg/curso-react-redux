@@ -68,6 +68,8 @@ class HomePage extends Component {
                     tweets: listaAtualizada
                 })
             })
+
+        this.fechaModal();
     }
 
     abreModal = (objetoDoTweetClicado) => {
