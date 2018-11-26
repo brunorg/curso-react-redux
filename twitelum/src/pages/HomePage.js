@@ -20,11 +20,19 @@ class HomePage extends Component {
     }
 
     componentDidMount() {
+        window.store.subscribe(() => {
+            console.log('Dentro do subscribe: ', window.store.getState())
+            this.setState({
+                tweets: window.store.getState()
+            })
+        })
+
         fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem("TOKEN")}`)
             .then((respostaDoServer) => {
                 return respostaDoServer.json()
             }).then((tweetsQueVieramDoServer) => {
-                this.setState({
+                window.store.dispatch({
+                    type: 'CARREGA_TWEETS',
                     tweets: tweetsQueVieramDoServer
                 })
             })

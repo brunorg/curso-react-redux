@@ -13,6 +13,7 @@ import './assets/css/novoTweet.css'
 // import './index.css';
 
 import registerServiceWorker from './registerServiceWorker';
+import store from './store.js'
 
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes';
