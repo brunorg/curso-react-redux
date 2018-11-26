@@ -7,6 +7,7 @@ import Widget from '../components/Widget'
 import TrendsArea from '../components/TrendsArea'
 import Tweet from '../components/Tweet'
 import Modal from '../components/Modal';
+import PropTypes from 'prop-types';
 
 class HomePage extends Component {
     constructor() {
@@ -19,11 +20,17 @@ class HomePage extends Component {
         }
     }
 
+    static contextTypes = {
+        store: PropTypes.object
+    }
+
     componentDidMount() {
-        window.store.subscribe(() => {
-            console.log('Dentro do subscribe: ', window.store.getState())
+        const store = this.context.store
+
+        store.subscribe(() => {
+            console.log('Dentro do subscribe: ', store.getState())
             this.setState({
-                tweets: window.store.getState()
+                tweets: store.getState()
             })
         })
 
@@ -31,7 +38,7 @@ class HomePage extends Component {
             .then((respostaDoServer) => {
                 return respostaDoServer.json()
             }).then((tweetsQueVieramDoServer) => {
-                window.store.dispatch({
+                store.dispatch({
                     type: 'CARREGA_TWEETS',
                     tweets: tweetsQueVieramDoServer
                 })

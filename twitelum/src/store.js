@@ -9,4 +9,6 @@ function tweetsReducer(stateDaStore = [], acaodisparada) {
     return stateDaStore
 }
 
-window.store = createStore(tweetsReducer)
+const store = createStore(tweetsReducer)
+
+export default store

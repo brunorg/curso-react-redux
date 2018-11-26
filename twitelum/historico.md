@@ -6,3 +6,10 @@
 - O reducer é uma função executada como um filtro para atualizar algo na store
 - É necessário passar um action ao chamar (fazer o dispatch) o reducer
 - O componentDidMount fui utilizado para registar o observer do store
+
+## Inclusão do react redux para
+
+`npm install react-redux`
+
+A ideia nesse caso é tirar o store do objeto window para que possa ser usado fora do navegador (Native)
+

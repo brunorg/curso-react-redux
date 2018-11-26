@@ -17,10 +17,13 @@ import store from './store.js'
 
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes';
+import { Provider } from 'react-redux'
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Routes />
-    </BrowserRouter>
+    <Provider store={store}>
+        <BrowserRouter>
+            <Routes />
+        </BrowserRouter>
+    </Provider>
     , document.getElementById('root'));
 registerServiceWorker();
