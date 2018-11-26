@@ -8,6 +8,7 @@ import TrendsArea from '../components/TrendsArea'
 import Tweet from '../components/Tweet'
 import Modal from '../components/Modal';
 import PropTypes from 'prop-types';
+import * as TweetsAction from '../actions/TweetsAction'
 
 class HomePage extends Component {
     constructor() {
@@ -34,15 +35,7 @@ class HomePage extends Component {
             })
         })
 
-        fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem("TOKEN")}`)
-            .then((respostaDoServer) => {
-                return respostaDoServer.json()
-            }).then((tweetsQueVieramDoServer) => {
-                store.dispatch({
-                    type: 'CARREGA_TWEETS',
-                    tweets: tweetsQueVieramDoServer
-                })
-            })
+        TweetsAction.carrega()
     }
 
     adicionaTweet = (infosDoEvento) => {

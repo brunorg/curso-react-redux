@@ -7,9 +7,13 @@
 - É necessário passar um action ao chamar (fazer o dispatch) o reducer
 - O componentDidMount fui utilizado para registar o observer do store
 
-## Inclusão do react redux para
+## Inclusão do react-redux
 
 `npm install react-redux`
 
 A ideia nesse caso é tirar o store do objeto window para que possa ser usado fora do navegador (Native)
 
+## Separando as responsabilidades 1
+
+Criar as chamadas REST e atualização da store em pasta de actions
+ 

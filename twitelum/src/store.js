@@ -1,9 +1,9 @@
 import { createStore } from 'redux'
 
-function tweetsReducer(stateDaStore = [], acaodisparada) {
+function tweetsReducer(stateDaStore = [], acaoDisparada) {
     console.log('Alguém disparou uma ação')
-    if (acaodisparada.type === 'CARREGA_TWEETS') {
-        return acaodisparada.tweets
+    if (acaoDisparada.type === 'CARREGA_TWEETS') {
+        return acaoDisparada.tweets
     }
 
     return stateDaStore
