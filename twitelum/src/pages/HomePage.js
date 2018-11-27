@@ -50,23 +50,9 @@ class HomePage extends Component {
     }
 
     removeTweet = (idDoTweet) => {
-        fetch(`http://twitelum-api.herokuapp.com/tweets/${idDoTweet}?X-AUTH-TOKEN=${localStorage.getItem("TOKEN")}`, {
-            method: 'DELETE',
+        TweetsAction.remove(idDoTweet).then(() => {
+            this.fechaModal();
         })
-            .then((res) => res.json())
-            .then((respostaConvertida) => {
-                console.log(respostaConvertida)
-
-                const listaAtualizada = this.state.tweets.filter((tweetAtual) => {
-                    return tweetAtual._id !== idDoTweet
-                })
-
-                this.setState({
-                    tweets: listaAtualizada
-                })
-            })
-
-        this.fechaModal();
     }
 
     abreModal = (objetoDoTweetClicado) => {
@@ -167,3 +153,5 @@ class HomePage extends Component {
 }
 
 export default HomePage;
+
+

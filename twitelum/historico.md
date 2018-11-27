@@ -21,4 +21,9 @@ Criar as chamadas REST e atualização da store em pasta de actions
 
 - Ao migrar metodo adiciona para Action e coloca o novo type no store
 - O metodo adiciona deve retornar uma promisse para limpar o campo do tweet apenas após o sucesso
-- Observar que na store para acessar o estado atual da store ela está disponível como param 
+- Observar que na store para acessar o estado atual da store ela está disponível como param
+
+## Migrando a ação de remover tweet para store redux
+
+- Inicialmente chamar o dipatch do store para usar o redux
+- Depois migrar a chamada REST para o arquivo de actions

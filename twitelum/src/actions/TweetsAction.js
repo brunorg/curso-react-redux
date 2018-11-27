@@ -30,3 +30,16 @@ export function adiciona(novoTweet) {
         })
     })
 }
+
+export function remove(idDoTweet) {
+    return fetch(`http://twitelum-api.herokuapp.com/tweets/${idDoTweet}?X-AUTH-TOKEN=${localStorage.getItem("TOKEN")}`, {
+        method: 'DELETE'
+    }).then((res) => {
+        res.json()
+    }).then((respostaConvertida) => {
+        store.dispatch({
+            type: 'REMOVE_TWEET',
+            idDoTweet: idDoTweet
+        });
+    });
+}
