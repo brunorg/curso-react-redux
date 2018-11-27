@@ -5,6 +5,9 @@ function tweetsReducer(stateDaStore = [], acaoDisparada) {
     if (acaoDisparada.type === 'CARREGA_TWEETS') {
         return acaoDisparada.tweets
     }
+    if (acaoDisparada.type === 'ADD_TWEET') {
+        return [acaoDisparada.tweet, ...stateDaStore]
+    }
 
     return stateDaStore
 }

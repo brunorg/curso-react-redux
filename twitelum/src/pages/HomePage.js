@@ -42,19 +42,8 @@ class HomePage extends Component {
         infosDoEvento.preventDefault()
         const novoTweet = this.state.novoTweet;
 
-        fetch(`http://twitelum-api.herokuapp.com/tweets?X-AUTH-TOKEN=${localStorage.getItem("TOKEN")}`, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-                // 'Authorization': localStorage.getItem('TOKEN')
-            },
-            body: JSON.stringify({ conteudo: novoTweet })
-        }).then((respostaDoServer) => {
-            return respostaDoServer.json()
-        }).then((tweetQueVeioDoServer) => {
-            console.log('Resposta: ', tweetQueVeioDoServer)
+        TweetsAction.adiciona(novoTweet).then(() => {
             this.setState({
-                tweets: [tweetQueVeioDoServer, ...this.state.tweets],
                 novoTweet: ''
             })
         })

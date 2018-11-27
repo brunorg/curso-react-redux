@@ -16,4 +16,9 @@ A ideia nesse caso é tirar o store do objeto window para que possa ser usado fo
 ## Separando as responsabilidades 1
 
 Criar as chamadas REST e atualização da store em pasta de actions
- 
+
+## Separando as responsabilidades 2
+
+- Ao migrar metodo adiciona para Action e coloca o novo type no store
+- O metodo adiciona deve retornar uma promisse para limpar o campo do tweet apenas após o sucesso
+- Observar que na store para acessar o estado atual da store ela está disponível como param 
