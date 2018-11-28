@@ -13,6 +13,12 @@ function tweetsReducer(stateDaStore = [], acaoDisparada) {
             return tweetAtual._id !== acaoDisparada.idDoTweet
         })
     }
+    if (acaoDisparada.type === 'LIKE') {
+        console.log()
+        return stateDaStore.filter((tweetAtual) => {
+            return tweetAtual._id !== acaoDisparada.idDoTweet
+        })
+    }
 
     return stateDaStore
 }

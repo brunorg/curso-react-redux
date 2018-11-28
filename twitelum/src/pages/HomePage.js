@@ -48,18 +48,18 @@ class HomePage extends Component {
         })
     }
 
-    removeTweet = (idDoTweet) => {
-        const store = this.context.store
+    // removeTweet = (idDoTweet) => {
+    //     const store = this.context.store
 
-        TweetsAction.remove(idDoTweet).then(() => {
-            this.fechaModal();
+    //     TweetsAction.remove(idDoTweet).then(() => {
+    //         this.fechaModal();
 
-            store.dispatch({
-                type: 'ADD_NOTIFICACAO',
-                msg: 'Tweet removido com sucesso!!!'
-            });
-        })
-    }
+    //         store.dispatch({
+    //             type: 'ADD_NOTIFICACAO',
+    //             msg: 'Tweet removido com sucesso!!!'
+    //         });
+    //     })
+    // }
 
     abreModal = (objetoDoTweetClicado) => {
         this.setState({
@@ -126,7 +126,9 @@ class HomePage extends Component {
                                         return <TweetContainer
                                             key={indice}
                                             tweetAtual={tweetAtual}
-                                            onRemove={this.removeTweet}
+                                            onRemove={() => {
+                                                this.context.store.dispatch({ type: 'ADD_NOTIFICACAO', msg: 'Tweet removido com sucesso!!!' });
+                                            }}
                                             handleAbreModal={() => this.abreModal(tweetAtual)} />
                                     })
                                 }
@@ -139,7 +141,10 @@ class HomePage extends Component {
                         <TweetContainer
                             id={this.state.tweetAtivo._id}
                             tweetAtual={this.state.tweetAtivo}
-                            onRemove={this.removeTweet}
+                            onRemove={() => {
+                                this.fechaModal()
+                                this.context.store.dispatch({ type: 'ADD_NOTIFICACAO', msg: 'Tweet removido com sucesso!!!' });
+                            }}
                             handleAbreModal={() => this.abreModal(this.state.tweetAtivo)}
                         />
                     </Widget>

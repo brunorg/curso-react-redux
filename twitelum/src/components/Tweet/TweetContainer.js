@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
 import Tweet from './'
+import * as TweetsAction from '../../actions/TweetsAction'
+
+// Sempre que você você precisa
 
 class TweetContainer extends Component {
     remove = () => {
-        this.props.onRemove(this.props.tweetAtual._id)
+        const idDoTweet = this.props.tweetAtual._id
+
+        TweetsAction.remove(idDoTweet).then(() => {
+            this.props.onRemove(idDoTweet)
+        })
     }
 
     render() {
