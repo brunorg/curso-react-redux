@@ -1,4 +1,4 @@
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
 
 function tweetsReducer(stateDaStore = [], acaoDisparada) {
     console.log('Alguém disparou uma ação')
@@ -17,6 +17,19 @@ function tweetsReducer(stateDaStore = [], acaoDisparada) {
     return stateDaStore
 }
 
-const store = createStore(tweetsReducer)
+function notificacaoReducer(state = '', action = {}) {
+    if (action.type === 'ADD_NOTIFICACAO') {
+        return action.msg
+    }
+    if (action.type === 'REMOVE_NOTIFICACAO') {
+        return ''
+    }
+    return state
+}
+
+const store = createStore(combineReducers({
+    tweets: tweetsReducer,
+    notificacao: notificacaoReducer
+}))
 
 export default store

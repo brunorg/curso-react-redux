@@ -5,10 +5,10 @@ import NavMenu from '../components/NavMenu'
 import Dashboard from '../components/Dashboard'
 import Widget from '../components/Widget'
 import TrendsArea from '../components/TrendsArea'
-import Tweet from '../components/Tweet'
-import Modal from '../components/Modal';
+import Modal from '../components/Modal'
 import PropTypes from 'prop-types';
 import * as TweetsAction from '../actions/TweetsAction'
+import TweetContainer from '../components/Tweet/TweetContainer';
 
 class HomePage extends Component {
     constructor() {
@@ -29,9 +29,8 @@ class HomePage extends Component {
         const store = this.context.store
 
         store.subscribe(() => {
-            console.log('Dentro do subscribe: ', store.getState())
             this.setState({
-                tweets: store.getState()
+                tweets: store.getState().tweets
             })
         })
 
@@ -50,8 +49,15 @@ class HomePage extends Component {
     }
 
     removeTweet = (idDoTweet) => {
+        const store = this.context.store
+
         TweetsAction.remove(idDoTweet).then(() => {
             this.fechaModal();
+
+            store.dispatch({
+                type: 'ADD_NOTIFICACAO',
+                msg: 'Tweet removido com sucesso!!!'
+            });
         })
     }
 
@@ -117,15 +123,10 @@ class HomePage extends Component {
                                 }
                                 {
                                     this.state.tweets.map((tweetAtual, indice) => {
-                                        return <Tweet
+                                        return <TweetContainer
                                             key={indice}
-                                            id={tweetAtual._id}
-                                            texto={tweetAtual.conteudo}
-                                            usuario={tweetAtual.usuario}
-                                            likeado={tweetAtual.likeado}
-                                            totalLikes={tweetAtual.totalLikes}
-                                            removivel={tweetAtual.removivel}
-                                            removeHandler={() => this.removeTweet(tweetAtual._id)}
+                                            tweetAtual={tweetAtual}
+                                            onRemove={this.removeTweet}
                                             handleAbreModal={() => this.abreModal(tweetAtual)} />
                                     })
                                 }
@@ -135,18 +136,22 @@ class HomePage extends Component {
                 </div>
                 <Modal isAberto={Boolean(this.state.tweetAtivo._id)} onFechandoModal={this.fechaModal} >
                     <Widget>
-                        <Tweet
+                        <TweetContainer
                             id={this.state.tweetAtivo._id}
-                            texto={this.state.tweetAtivo.conteudo}
-                            usuario={this.state.tweetAtivo.usuario}
-                            likeado={this.state.tweetAtivo.likeado}
-                            totalLikes={this.state.tweetAtivo.totalLikes}
-                            removivel={this.state.tweetAtivo.removivel}
-                            removeHandler={() => this.removeTweet(this.state.tweetAtivo._id)}
+                            tweetAtual={this.state.tweetAtivo}
+                            onRemove={this.removeTweet}
                             handleAbreModal={() => this.abreModal(this.state.tweetAtivo)}
                         />
                     </Widget>
                 </Modal>
+                {
+                    this.context.store.getState().notificacao &&
+                    <div className="notificacaoMsg" onAnimationEnd={() => {
+                        this.context.store.dispatch({ type: 'REMOVE_NOTIFICACAO' })
+                    }}>
+                        {this.context.store.getState().notificacao}
+                    </div>
+                }
             </Fragment>
         );
     }

@@ -27,3 +27,12 @@ Criar as chamadas REST e atualização da store em pasta de actions
 
 - Inicialmente chamar o dipatch do store para usar o redux
 - Depois migrar a chamada REST para o arquivo de actions
+
+
+## Necessidade do combineReducers para outro objeto na store
+
+- Incluir a funcao combineReducers e associar cada redutor a um nome na store
+- Remove nao vai para action por que nem sempre a intenção e aparecer a mensagem em toda remoção
+- A mensagem na Home pode ser extraida para um componente
+- Ao remover a mensagem no render ela deve ser passada como arrow function por que senao será executada à primeira vez
+- O Tweet foi componentizado em um conteiner para evitar duplicacao de código
